@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 class GoogleLoginController extends Controller
 {
@@ -25,6 +25,7 @@ class GoogleLoginController extends Controller
         if ($existingUser) {
             // Log in the existing user.
             auth()->login($existingUser, true);
+
         } else {
             // Create a new user.
             $newUser = new User();
@@ -37,14 +38,14 @@ class GoogleLoginController extends Controller
             // Log in the new user.
             auth()->login($newUser, true);
         }
-
-
+        Session::put('user_name', $user->name);  
+        Session::put('user_email', $user->email);
         } catch (\Exception $e) {
               // Log the exception for debugging purposes
               Log::error('Exception during Google OAuth callback: ' . $e->getMessage());
 
               // Redirect the user back to the login page with a JavaScript popup message
-              return redirect('/login')->with('error', 'An error occurred during Google authentication. Please try again.')
+              return redirect('/home')->with('error', 'An error occurred during Google authentication. Please try again.')
                                        ->with('showPopup', true);
         }
         

@@ -26,12 +26,14 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('register');
 });
-
 Route::get('/home', function () {
     return view('welcome');
 });
 Route::get('/about', function () {
     return view('about');
+});;
+Route::get('/profile', function () {
+    return view('profile');
 });;
 
 
@@ -39,6 +41,7 @@ Route::post('/logn', 'App\Http\Controllers\LoginController@authenticate');
 
 Route::post('/vRegister', [RegisterController::class, 'register'])->name('register');
 
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
