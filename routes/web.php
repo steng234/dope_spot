@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use app\Http\Controllers\Auth\LoginRegisterController;
-use app\Http\Controllers\Auth\VerificationController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\DataController;
 use App\Http\Controllers\GoogleLoginController;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,11 +36,22 @@ Route::get('/profile', function () {
 });;
 
 
-Route::post('/logn', 'App\Http\Controllers\LoginController@authenticate');
 
-Route::post('/vRegister', [RegisterController::class, 'register'])->name('register');
+Route::view('/', 'welcome')->name('home');
+Route::view('/login', 'login')->name('login');
+Route::view('/register', 'register')->name('register');
+Route::view('/about', 'about')->name('about');
+Route::view('/profile', 'profile')->name('profile');
 
-Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::post('/login', [DataController::class, 'authenticate'])->name('login.post');
+Route::post('/register', [DataController::class, 'register'])->name('register.post');
+Route::post('/update-profile', [DataController::class, 'updateProfile'])->name('profile.update');
+Route::post('/update-password', [DataController::class, 'updatePassword'])->name('password.update');
+Route::get('/logout', [DataController::class, 'logout'])->name('logout');
+Route::get('/product', [ProductController::class, 'productSelection'])->name('productSelection');
+Route::get('/api/user-id', [DataController::class, 'fetchUserId']);
+Route::get('/product/{id}', [ProductController::class, 'detail'])->name('product-detail');
+
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback'])->name('auth.google.callback');

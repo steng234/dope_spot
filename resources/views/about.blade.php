@@ -32,7 +32,6 @@
       <div class="mt-auto flex justify-center items-center gap-x-3 py-3 w-full text-center">  
       <h5 class="text-sm text-gray-800 dark:text-gray-200">Click here for more info</h5>   
       </div>
-
     </a>
     </div>
     <!-- End Card -->

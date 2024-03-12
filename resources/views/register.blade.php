@@ -28,7 +28,7 @@
             </button>
 
             <!-- Form -->
-            <form action="{{url('vRegister')}}" method="post">
+            <form action="{{url('register')}}" method="post">
             @csrf
 
             <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">Or</div>
@@ -62,21 +62,6 @@
                   <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
                 </div>
                 <!-- End Form Group -->
-                  <!-- Form Group -->
-                  <div>
-                  <label for="surname" class="block text-sm mb-2 dark:text-white">surname</label>
-                  <div class="relative">
-                    <input type="text" id="surname" name="surname" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="email-error">
-                    <div class="hidden absolute inset-y-0 end-0 pointer-events-none pe-3">
-                      <svg class="size-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                      </svg>
-                    </div>
-                  </div>
-                  <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
-                </div>
-                <!-- End Form Group -->
-
                 <!-- Form Group -->
                 <div>
                   <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>

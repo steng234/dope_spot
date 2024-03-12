@@ -1,9 +1,11 @@
 @extends('header_footer')
-
 @section('content')
-<div class="container mx-auto px-4 py-8">
+@vite(['resources/js/app.js'])
+@vite(['resources/css/app.css'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">  
+<div id="app" class="container mx-auto px-4 py-8 z-0">
     <h1 class="text-3xl font-semibold text-center mb-6 ">Good Morning {{ Session::get('user_name') }}</h1>
-
     <div class="flex justify-center items-center mb-4 gap-4 w-full">
         <div class="grid grid-cols-1 flex items-center w-80 text-center">
             <h2 class="mr-2">Email:</h2>
@@ -24,7 +26,7 @@
 
         <div class="grid grid-cols-1 flex items-center w-80 text-center">
             <h2 class="mr-2">Postal code:</h2>
-            <p class="roboto">{{ DB::table('users')->where('email', Session::get('user_email'))->value('cap') }}</p>
+            <p class="roboto">{{ DB::table('users')->where('email', Session::get('user_email'))->value('postal') }}</p>
         </div>
 
     </div>
@@ -46,20 +48,12 @@
             <p class="roboto">{{ DB::table('users')->where('email', Session::get('user_email'))->value('telephone') }}</p>
     </div>
     <div class="flex justify-center items-center text-center mb-4 gap-4 w-full">
-
-        <div class="grid grid-cols-1 flex items-center w-40 text-center">
-            <button type="button" class="py-3 px-4 items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                Modify Data
-            </button>
-        </div>
-
-        <div class="grid grid-cols-1 flex items-center w-40 text-center">
-            <button @click="showModal = true" type="button" class="py-3 px-4 items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                modify password
-            </button>
-        </div>
+    <button-for-data></button-for-data>
+  
+    @if (DB::table('users')->where('email', Session::get('user_email'))->value('google_id') === null)
+            <button-for-password></button-for-password>
+    @endif
     </div>
-   
+    
 </div>
-
 @endsection

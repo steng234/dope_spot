@@ -19,16 +19,19 @@ class GoogleLoginController extends Controller
     {
         try {
             $user = Socialite::driver('google')->user();
-            
             $existingUser = User::where('google_id', $user->id)->first();
 
         if ($existingUser) {
             // Log in the existing user.
             auth()->login($existingUser, true);
-
+            Session::put('user_id', $existingUser->id);
+            Session::put('user_name', $existingUser->name);  
+            Session::put('user_email', $existingUser->email);
+    
         } else {
             // Create a new user.
             $newUser = new User();
+            $newUser->id =$user->id ;
             $newUser->name = $user->name;
             $newUser->email = $user->email;
             $newUser->google_id = $user->id;
@@ -38,8 +41,8 @@ class GoogleLoginController extends Controller
             // Log in the new user.
             auth()->login($newUser, true);
         }
-        Session::put('user_name', $user->name);  
-        Session::put('user_email', $user->email);
+
+       
         } catch (\Exception $e) {
               // Log the exception for debugging purposes
               Log::error('Exception during Google OAuth callback: ' . $e->getMessage());

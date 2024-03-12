@@ -6,8 +6,4 @@
  
 <template>
     {{ count }}
- 
-    <button @click="count++">
-        Add
-    </button>
 </template>

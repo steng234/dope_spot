@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Http\Request;
 class User extends Authenticatable implements MustVerifyEmail
 {
 
@@ -17,11 +18,17 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @var array
      */
+    protected $table = 'users';
     protected $fillable = [
         'name',
         'email',
         'password',
         'google_id', 
+        'telephone',
+        'address',
+        'city',
+        'postal',
+        'state'
     ];
 
     /**
@@ -54,5 +61,28 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->attributes['password'] = Hash::make($password);
     }
 
-    
+    public function saveData(Request $request)
+    {
+        try {
+            // Create a new user instance
+            $user = new User();
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password')); // Hash the password
+            $user->telephone = $request->input('telephone');
+            $user->address = $request->input('address');
+            $user->city = $request->input('city');
+            $user->postal = $request->input('postal');
+            $user->state = $request->input('state');
+            // You can add other fields as needed
+            
+            $user->save(); // Save the user to the database
+
+            return response()->json(['success' => true, 'message' => 'User registered successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error saving user: ' . $e->getMessage()], 500);
+        }
+    }
+
+   
 }

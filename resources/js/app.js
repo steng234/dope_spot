@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
-import Counter from './components/counter.vue'
-
+import buttonfordata from './components/buttonForData.vue'
+import buttonforpassword from './components/buttonForPassword.vue'
 const app = createApp()
  
-app.component('counter', Counter)
- 
+app.component('button-for-data', buttonfordata) 
+app.component('button-for-password', buttonforpassword) 
 app.mount('#app')
