@@ -3,7 +3,7 @@ export default {
   content: [
     "./resources/views/*.blade.php",
     "./resources/js/*.js",
-    "./resources/js/componente/*.vue",
+    "./resources/js/components/*.vue",
     'node_modules/preline/dist/*.js',
   ],
   theme: {

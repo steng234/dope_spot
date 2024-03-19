@@ -83,6 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
             return response()->json(['success' => false, 'message' => 'Error saving user: ' . $e->getMessage()], 500);
         }
     }
-
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
    
 }

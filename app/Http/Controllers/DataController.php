@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Cart;
 use Exception;
 
 class DataController extends Controller
@@ -57,12 +58,17 @@ class DataController extends Controller
         ]);
         
         // Create a new user record
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'surname' => $request->surname,
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+
+         // Create a new cart for the user
+            $cart = new Cart();
+            $cart->user_id = $user->id; // Associate the cart with the newly created user
+            $cart->save();
      
 
         // Redirect the user after successful registration
@@ -121,7 +127,6 @@ class DataController extends Controller
 
         // Retrieve the user from the database
         $user = User::where('email', Session::get('user_email'))->first();
-        Log::info('Requesterjihuwejb');
         // Check if the old password matches the user's current password
         if (!Hash::check($request->old, $user->password)) {
             Log::info('Requesfadfadjsnflksdaflksdflsdterjihuwejb');

@@ -1,34 +1,31 @@
 @extends('header_footer')
 @section('content')
-<div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-  <div class="max-w-2xl mx-auto">
-    <div class="border border-gray-200 rounded-xl p-5 dark:border-gray-700">
-      <!-- Product Image -->
-      <div class="aspect-w-16 aspect-h-11">
-        <img src="{{ asset('images/'. $product->category->name . '/' . $product->brand->name . '/' . $product->type->name . '/' . $product->images->first()->image) }}" alt="{{ $product->name }}" class="w-full h-80 object-cover rounded-xl">
-      </div>
-      <!-- Product Name -->
-      <h2 class="mt-5 text-2xl font-bold text-gray-800 dark:text-gray-300">{{ $product->name }}</h2>
-      <!-- Brand -->
-      <p class="mt-2 text-sm font-semibold text-gray-500 dark:text-gray-300">Brand: {{ $product->brand->name }}</p>
-      <!-- Price -->
-      <p class="mt-2 text-lg font-bold text-gray-800 dark:text-gray-300">${{ $product->variations->first()->price ?? 'N/A' }}</p>
-      <!-- Description -->
-      <p class="mt-4 text-base text-gray-600 dark:text-gray-400">{{ $product->description }}</p>
-      <!-- Additional Information -->
-      <div class="mt-4">
-        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-300">Additional Photos:</h3>
-        <ul class="mt-2 grid grid-cols-2 gap-4">
-          @foreach($product->images as $image)
-            <li>
-              <img src="{{ asset('images/'. $product->category->name . '/' . $product->brand->name . '/' . $product->type->name . '/' . $image->image) }}" alt="{{ $product->name }}" class="w-full h-32 object-cover rounded-lg">
-            </li>
-          @endforeach
-        </ul>
-      </div>
-    </div>
-  </div>
+   <!-- Fonts -->
+   <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
+
+        @vite(['resources/js/app.js'])
+        @vite(['resources/css/app.css'])
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<div id="app">
+  <product-detail
+    :product-name="'{{ $product->name }}'"
+    :product-id="'{{ $product->id }}'"
+    :brand-name="'{{ $product->brand->name }}'"
+    :product-price="'{{ $product->variations->first()->price ?? 'N/A' }}'"
+    :product-description="'{{ $product->description }}'"
+    :main-image="'{{ asset('images/'. $product->category->name . '/' . $product->brand->name . '/' . $product->type->name . '/' . $product->images->get(1)->image) }}'"
+    :additional-images="[ 
+  @foreach($product->images->skip(1) as $image)
+    '{{ asset('images/'. $product->category->name . '/' . $product->brand->name . '/' . $product->type->name . '/' . $image->image) }}',
+  @endforeach
+]"
+:variations="{{ $product->variations }}"
+    @main-image-changed="updateMainImage"
+  ></product-detail>
 </div>
-
-
 @endsection
+
+@push('scripts')
+<script src="{{ mix('js/app.js') }}"></script>
+@endpush
