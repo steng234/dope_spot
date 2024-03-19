@@ -7,14 +7,15 @@
         @vite(['resources/js/app.js'])
         @vite(['resources/css/app.css'])
 <meta name="csrf-token" content="{{ csrf_token() }}">   
-@if($cartItemCount > 0)
+          @if($cartItemCount > 0)
          <!-- Display content when user has products in their cart -->
           <!-- Display content when user has products in their cart -->
           <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
             <div id="app">
-            <cart :variations="{{ json_encode($cartItems) }}"
-            ></cart>
+            <cart :variations="{{ json_encode($cartItems) }}"></cart>
             </div>
+            <h1>{{ $totalPrice}}</h1>
+            <h1>{{ $totalPieces}}</h1>
           </div>
     @else
         <!-- Display content when user has no products in their cart -->

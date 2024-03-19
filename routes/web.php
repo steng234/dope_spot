@@ -57,6 +57,8 @@ Route::get('/product/{id}', [ProductController::class, 'detail'])->name('product
 Route::get('/cart', [CartController::class, 'countCartProduct'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'addToCart']);
 Route::post('/cart/updateQuantity', [CartController::class, 'updateQuantity'])->name('cart.updateQuantity');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.removeFromCart');
+
 
 
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle'])->name('auth.google');

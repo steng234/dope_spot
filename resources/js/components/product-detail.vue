@@ -82,7 +82,8 @@
     return {
       selectedSize: this.variations[0].size,
       selectedColor: this.variations[0].color,
-      productPrice: this.variations[0].price
+      productPrice: this.variations[0].price,
+      variationId: this.variations[0].id
     };
   },
   watch: {
@@ -100,7 +101,7 @@
 
       addToCart: function() {
       // Send a POST request to your backend to add the product to the cart
-      axios.post('/cart/add', {  productId: this.productId} )
+      axios.post('/cart/add', {variationId: this.variationId } )
         .then(response => {
           // Handle success response
           console.log('Product added to cart:', response.data.message);
@@ -122,6 +123,7 @@
     updatePrice: function(size, color) {
       // Find the variation with the selected size and color
       const variation = this.variations.find(variation => variation.size === size && variation.color === color);
+      this.variationId= variation.id
       // Update the productPrice if variation is found, otherwise set it to 'N/A'
       this.productPrice = variation ? variation.price : 'N/A';
     }

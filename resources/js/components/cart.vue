@@ -13,6 +13,12 @@
                         Price
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Size
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Color
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Quantity
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -41,6 +47,12 @@
                         <div class="text-sm text-gray-900">{{ variation.price }}$</div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">{{ variation.size }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="text-sm text-gray-900">{{ variation.color }}</div>
+                    </td>
+                    <td class="px-6 py-4 whitespace-nowrap">
                         <select v-model="variation.quantity" @change="updateQuantity(variation)" class="mt-1 block w-14 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:border-blue-600 focus:ring-blue-600 sm:text-sm appearance-none">
                             <option :key="quantity" :value="variation.quantity" selected>{{ variation.pivot.quantity }}</option>
                             
@@ -50,9 +62,9 @@
 
                         </select>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap ">
-                            <button @click="removeFromCart(variation.product_variation_id)" class="p-1 text-red-600 hover:text-gray-900">
-                                delete
+                    <td class="px-6 py-4 whitespace-nowrap fles items-center justify-center">
+                            <button @click="removeFromCart(variation)" class="p-1 text-red-600 hover:text-gray-900">
+                                <img width="24" height="24" src="https://img.icons8.com/material-outlined/48/filled-trash.png" alt="filled-trash"/>
                             </button>
                     </td>
                 </tr>
@@ -88,6 +100,18 @@ export default {
                     console.error('Error updating quantity:', error);
                 });
         },
+        removeFromCart(variation) {
+            // Add logic to remove the product from the cart
+            axios.post('/cart/remove', { variationId: variation.id })
+                .then(response => {
+                    console.log('Product removed from cart:', response.data.message);
+                    location.reload();
+                    // Update the cart items count or reload the cart data if needed
+                })
+                .catch(error => {
+                    console.error('Error removing product from cart:', error);
+                });
+        }
     }
 };
 </script>
