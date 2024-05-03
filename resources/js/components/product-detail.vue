@@ -105,6 +105,7 @@
         .then(response => {
           // Handle success response
           console.log('Product added to cart:', response.data.message);
+          alert('Product added to cart');
         })
         .catch(error => {
           // Handle error response

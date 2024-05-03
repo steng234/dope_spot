@@ -15,9 +15,13 @@ class CreditCardController extends Controller
 
     public function index()
     {
-        $user = auth()->user();
-        $paymentMethods = $user->creditCards;
+        $userId = Session::get('user_id');
+        $user = User::with('creditCards')->find($userId)->creditCards;
+        Log::info($user);
+        $paymentMethods = $user;
         return view('payment', compact('paymentMethods'));
+     
+      
     }
     public function addPayment(Request $request)
     {
@@ -27,17 +31,18 @@ class CreditCardController extends Controller
     
             // Create a new credit card instance
             $creditCard = new CreditCard();
-            $creditCard->user_id = auth()->user()->id;
+
+           
+            $creditCard->user_id = Session::get('user_id');
             $creditCard->card_number = $request->input('cardNumber');
             $creditCard->expiry_date = $request->input('expiryDate');
             $creditCard->cvv = $request->input('cvv');
             
-            // Log the credit card data before saving
-            Log::info('Credit card data:', $creditCard->toArray());
-    
+            
             // Save the credit card to the database
             $creditCard->save();
-            Log::info('Saved');
+
+            Log::info($creditCard);
     
             // Log a success message
             Log::info('Payment method added successfully');
