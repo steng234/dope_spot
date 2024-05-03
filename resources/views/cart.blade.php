@@ -10,13 +10,26 @@
           @if($cartItemCount > 0)
          <!-- Display content when user has products in their cart -->
           <!-- Display content when user has products in their cart -->
-          <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-            <div id="app">
+          <div class="max-w-[85rem] px-4 py-6 sm:px-6 h-fit lg:px-8 lg:py-8 mx-auto">
+            
+            <div id="app" class="h-fit">
             <cart :variations="{{ json_encode($cartItems) }}"></cart>
             </div>
-            <h1>{{ $totalPrice}}</h1>
-            <h1>{{ $totalPieces}}</h1>
+
+            <div class="flex justify-center items-end w-full h-full ">
+            <div class="bg-gray-50 w-full flex justify-center items-center h-14">
+                <div class=" px-4">Total Price: {{ $totalPrice }} </div>
+                <div class=" pr-4" >Total Pieces: {{ $totalPieces }} </div>
+                <!-- Proceed to Payment Link -->
+                <div>
+                <a href="{{route('payment') }}"  class=" px-4 gap-x-2 sm:text-sm text-xs  font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 h-full">
+                            shop&nbsp;now
+                </a>
+                </div>
+                </div>
+            </div>
           </div>
+          
     @else
         <!-- Display content when user has no products in their cart -->
         <div class="justify-center h-full flex items-center">
@@ -30,7 +43,7 @@
         </p>
       </div>
 
-      <div class="flex items-center justify-center  ">
+      <div class="flex items-center justify-center ">
         <div class="px-6">
         <a href="{{  route('productSelection', ['category_id' => 1] )}}" class=" py-2.5 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
         <img width="16" height="16" src="https://img.icons8.com/external-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto/64/FFFFFF/external-shopping-bag-digital-marketing-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto.png" alt="external-shopping-bag-digital-marketing-yogi-aprelliyanto-basic-outline-yogi-aprelliyanto"/>

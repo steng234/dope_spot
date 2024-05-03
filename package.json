@@ -28,6 +28,7 @@
         "preline": "^2.0.3",
         "vite-svg-loader": "^5.1.0",
         "vue": "^3.4.19",
+        "vue-router": "^4.3.0",
         "yarn": "^1.22.21"
     }
 }

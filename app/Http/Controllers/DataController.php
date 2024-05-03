@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Order;
+use Laravel\Cashier\Cashier;
 use Exception;
 
 class DataController extends Controller
@@ -155,5 +157,14 @@ class DataController extends Controller
             'userId' => $request->session()->get('user_id')
         ]);
     }
+    public function userProfile(){
+    // Fetch orders associated with the current user
+
+
+        $userOrders = Order::where('user_id',Session::get("user_id"))->get();
+
     
+    // Pass the user's orders to the view
+    return view('profile', compact('userOrders'));
+    }
 }

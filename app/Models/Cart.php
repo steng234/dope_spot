@@ -31,6 +31,27 @@ class Cart extends Model
         ->with('product.category', 'product.brand', 'product.images','product.type');     
     }
     
+    public function calculateTotal()
+    {
+        $total = 0;
+
+        foreach ($this->products as $product) {
+            $total += $product->price * $product->pivot->quantity;
+        }
+
+        return $total;
+    }
+
+    public function calculateQuantity()
+    {
+        $quantity = 0;
+
+        foreach ($this->products as $product) {
+            $quantity += $product->pivot->quantity;
+        }
+
+        return $quantity;
+    }
 
 
 }

@@ -7,10 +7,11 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
+use Laravel\Cashier\Billable;
 class User extends Authenticatable implements MustVerifyEmail
 {
 
-
+    use Billable;
     use Notifiable;
 
     /**
@@ -60,7 +61,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $this->attributes['password'] = Hash::make($password);
     }
+    public function charge( $amount,  $paymentMethod,  $options = [])
+    {
+     
 
+        // Create the user as a Stripe customer if they are not already
+        if (!$this->stripe_id) {
+            $this->createAsStripeCustomer();
+        }
+
+        // Charge the user and return the invoice 
+        return $this->invoiceFor($amount, $paymentMethod, $options);
+    }
     public function saveData(Request $request)
     {
         try {
@@ -87,5 +99,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Cart::class);
     }
+    public function creditCards()
+{
+    return $this->hasMany(CreditCard::class);
+}
    
 }

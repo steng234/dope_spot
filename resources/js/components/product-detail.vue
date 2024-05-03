@@ -1,7 +1,7 @@
 <template>
     <div class=" px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div class="mx-auto">
-        <div class="grid grid-cols-2 border border-gray-200  w-full rounded-xl p-5 dark:border-gray-700">
+        <div class="grid grid-cols-1 sm:grid-cols-2 border border-gray-200  w-full rounded-xl p-5 dark:border-gray-700">
           <!-- Product Image -->
           <div class="aspect-w-16 aspect-h-11 col-span-1">
             <img id="main-image" :src="mainImage" :alt="productName" class="w-full object-cover rounded-xl">
@@ -14,8 +14,8 @@
           </ul>
           </div>
           </div>
-          <div class=" pl-4 flex items-center justify-center col-span-1">
-               <div class="">
+          <div class="pl-4 flex items-center justify-center col-span-1">
+               <div class="md:w-80 w-5/6">
                     <!-- Product Name -->
                     <h2 class="mt-5 text-2xl font-bold text-gray-800 dark:text-gray-300">{{ productName }}</h2>
                     <!-- Brand -->
@@ -102,6 +102,18 @@
       addToCart: function() {
       // Send a POST request to your backend to add the product to the cart
       axios.post('/cart/add', {variationId: this.variationId } )
+        .then(response => {
+          // Handle success response
+          console.log('Product added to cart:', response.data.message);
+        })
+        .catch(error => {
+          // Handle error response
+          console.error('Error adding product to cart:', error);
+        });
+    },
+    shopNow: function() {
+      // Send a POST request to your backend to add the product to the cart
+      axios.post('/shopNow', {variationId: this.variationId } )
         .then(response => {
           // Handle success response
           console.log('Product added to cart:', response.data.message);

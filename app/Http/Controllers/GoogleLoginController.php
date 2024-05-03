@@ -23,10 +23,11 @@ class GoogleLoginController extends Controller
 
         if ($existingUser) {
             // Log in the existing user.
-            auth()->login($existingUser, true);
+            
             Session::put('user_id', $existingUser->id);
             Session::put('user_name', $existingUser->name);  
             Session::put('user_email', $existingUser->email);
+            auth()->login($existingUser, true);
     
         } else {
             // Create a new user.

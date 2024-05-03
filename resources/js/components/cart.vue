@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div  class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
                 <tr>
@@ -30,7 +30,7 @@
                 <tr v-for="(variation, index) in variations" :key="index">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
-                            <div>
+                            <div class="w-20">
                                 <img class="w-20 object-cover rounded-xl" :src="getImageUrl(variation)" :alt="variation.product.name">
                             </div>
                             <div class="ml-4">
@@ -94,6 +94,7 @@ export default {
             axios.post('/cart/updateQuantity', { variationId: variation.id, quantity: variation.quantity })
                 .then(response => {
                     console.log('Quantity updated:', response.data.message);
+                    location.reload
                     // Optionally, you can update the cart items count or reload the cart data
                 })
                 .catch(error => {
