@@ -70,45 +70,53 @@ class ProductController extends Controller
         return view('product-detail', compact('product'));
     }
     public function search(Request $request)
-    {
-        $searchTerm = $request->input('searchTerm');
-        $results = Product::where('products.name', 'like', '%' . $searchTerm . '%')
-            ->orWhereHas('brand', function ($query) use ($searchTerm) {
-                $query->where('name', 'like', '%' . $searchTerm . '%');
-            })
-            ->orWhereHas('category', function ($query) use ($searchTerm) {
-                $query->where('name', 'like', '%' . $searchTerm . '%');
-            })
-            ->with('brand', 'category')
-            ->get();
+{
+    $searchTerm = $request->input('searchTerm');
+    
+    // Search for products, brands, and categories in one go
+    $results = Product::with('brand', 'category')
+        ->where('name', 'like', '%' . $searchTerm . '%')
+        ->orWhereHas('brand', function ($query) use ($searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        })
+        ->orWhereHas('category', function ($query) use ($searchTerm) {
+            $query->where('name', 'like', '%' . $searchTerm . '%');
+        })
+        ->get();
+       // dd($results);
+    // Organize search results into a matrix using collections
+    $matrix = [
+        'brand' => collect(),
+        'category' => collect(),
+        'product' => collect()
+    ];
 
-        // Organize search results into a matrix
-        $matrix = [
-            'brand' => [],
-            'category' => [],
-            'product' => []
-        ];
+    foreach ($results as $result) {
+        $brand = $result->brand;
+        $category = $result->category;
 
-        foreach ($results as $result) {
-            $brand = $result->brand;
-            $category = $result->category;
-
-            // Add brand to the matrix if it's not already present
-            if (!isset($matrix['brand'][$brand->id])) {
-                $matrix['brand'][$brand->id] = $brand->name;
-            }
-
-            // Add category to the matrix if it's not already present
-            if (!isset($matrix['category'][$category->id])) {
-                $matrix['category'][$category->id] = $category->name
-;
-            }
-
-            // Add product to the matrix
-            $matrix['product'][] = $result;
+        // Add brand to the matrix if it matches the search term and is not already present
+        if ($brand && stripos($brand->name, $searchTerm) !== false && !$matrix['brand']->has($brand->id)) {
+            $matrix['brand']->put($brand->id, $brand->name);
         }
 
-        // Convert matrix to JSON response
-        return response(['result' => $matrix]);
+        // Add category to the matrix if it matches the search term and is not already present
+        if ($category && stripos($category->name, $searchTerm) !== false && !$matrix['category']->has($category->id)) {
+            $matrix['category']->put($category->id, $category->name);
+        }
+
+        // Add product to the matrix if it matches the search term
+        if (stripos($result->name, $searchTerm) !== false) {
+            $matrix['product']->put($result->id, $result->name);
+        }
     }
+
+    // Convert matrix to JSON response
+    return response()->json(['result' => [
+        'brand' => $matrix['brand'],
+        'category' => $matrix['category'],
+        'product' => $matrix['product']
+    ]]);
+}
+
 }

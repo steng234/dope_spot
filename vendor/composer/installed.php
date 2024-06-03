@@ -1,24 +1,15 @@
 <?php return array(
     'root' => array(
-        'name' => 'air/dope_spot',
+        'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6e6f5e4b7605a433ecab36c67e1aacd533968fd6',
-        'type' => 'library',
+        'reference' => '76a94ca196cdf3eddc2a1e2c8975958b0475e31d',
+        'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
-        'air/dope_spot' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
-            'reference' => '6e6f5e4b7605a433ecab36c67e1aacd533968fd6',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../../',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'brick/math' => array(
             'pretty_version' => '0.11.0',
             'version' => '0.11.0.0',
@@ -394,6 +385,15 @@
             'reference' => 'dcf5d1d722b84ad38a5e053289130b6962f830bd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/framework',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laravel/laravel' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => '76a94ca196cdf3eddc2a1e2c8975958b0475e31d',
+            'type' => 'project',
+            'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
