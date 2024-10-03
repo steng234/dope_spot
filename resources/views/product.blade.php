@@ -43,7 +43,7 @@
         </select>
       </div>
 
-      <button type="submit" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Apply Filters</button>
+      <button type="submit" class="mt-6 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Apply&nbsp;Filters</button>
  
     </div>
     
@@ -90,7 +90,14 @@
 
 
   @else
-  <p>No products found in this category.</p>
+  <div class="px-4 py-10 sm:px-6 lg:px-8 lg:py-14 w-72">
+      <div class="flex flex-col h-full border border-gray-200 hover:border-transparent hover:shadow-lg transition-all duration-300 rounded-xl p-5 dark:border-gray-700 dark:hover:border-transparent dark:hover:shadow-black/[.4] dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">
+    
+      <p>No products found in this category.</p>
+      </div>
+    </div>
+
+
   @endif
 
   <!-- End Card Blog -->

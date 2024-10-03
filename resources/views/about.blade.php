@@ -4,7 +4,7 @@
 <div class=" h-full px-4 sm:px-6 lg:px-8 mx-auto ">
   <div>
   <!-- Title -->
-  <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+  <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14 pt-8 ">
     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">About us</h2>
     <p class="mt-1 text-gray-600 dark:text-gray-400">Dope-Spot is a revolutionary clothes shop </p>
   </div>
