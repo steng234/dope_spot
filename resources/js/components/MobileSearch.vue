@@ -30,14 +30,14 @@
 <script>
 import ResultsList from './ResultList.vue';
 
-export default {
-  props: {
+export default{
+  props:{
     searchTerm: String,
     isSearchVisible: Boolean,
     hasResult: Boolean,
     matrix: Object
   },
-  components: {
+  components:{
     ResultsList
   }
 };

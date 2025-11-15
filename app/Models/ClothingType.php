@@ -14,7 +14,7 @@ class ClothingType extends Model
     ];
 
     public function products()
-    {
+   {
         return $this->hasMany(Product::class, 'type_id'); // Foreign key reference
     }
 }

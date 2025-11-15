@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\Log;
 class GoogleLoginController extends Controller
 {
     public function redirectToGoogle(): RedirectResponse
-    {
+   {
         return Socialite::driver('google')->redirect();
     }
 
     public function handleGoogleCallback(): RedirectResponse
-    {
-        try {
+   {
+        try{
             $user = Socialite::driver('google')->user();
             $existingUser = User::where('google_id', $user->id)->first();
 
-        if ($existingUser) {
+        if($existingUser){
             // Log in the existing user.
             
             Session::put('user_id', $existingUser->id);
@@ -29,7 +29,7 @@ class GoogleLoginController extends Controller
             Session::put('user_email', $existingUser->email);
             auth()->login($existingUser, true);
     
-        } else {
+        }else{
             // Create a new user.
             $newUser = new User();
             $newUser->id =$user->id ;
@@ -44,7 +44,7 @@ class GoogleLoginController extends Controller
         }
 
        
-        } catch (\Exception $e) {
+        }catch(\Exception $e){
               // Log the exception for debugging purposes
               Log::error('Exception during Google OAuth callback: ' . $e->getMessage());
 

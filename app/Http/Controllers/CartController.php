@@ -22,22 +22,22 @@ use App\Models\Product;
 class CartController extends Controller
 {   
     public function countCartProduct()
-    {
+   {
         // Retrieve the authenticated user
         $user = User::where('email', Session::get('user_email'))->first();
 
         // Check if the user is authenticated
-        if ($user) {
+        if($user){
             $cart = $user->cart;
 
             // Check if the user has a cart
-            if ($cart) {
+            if($cart){
                 // Retrieve the cart items count
                 // Retrieve the cart items and calculate total price and total pieces
                 $cartItems = $cart->products;
                 $totalPrice = 0;
                 $totalPieces = 0;
-                foreach ($cartItems as $item) {
+                foreach($cartItems as $item){
                     $totalPrice += $item->pivot->quantity * $item->price; // Assuming 'price' is the attribute name for the price of the product
                     $totalPieces += $item->pivot->quantity;
                 }
@@ -50,14 +50,14 @@ class CartController extends Controller
                     'totalPieces' => $totalPieces,
                     'cartId'=> $cart->id
                 ]);
-            } else {
+            }else{
                 // If the user does not have a cart, create one
                 $cart = new Cart();
                 $user->cart()->save($cart);
             // Pass the cart items count to the view
             return view('cart', ['cartItemCount' => 0]);
         }
-        } else {
+        }else{
             // Handle the acase when the user is not authenticated
             // Redirect or display an error message
         }
@@ -66,7 +66,7 @@ class CartController extends Controller
 
     
     public function addToCart(Request $request)
-    {
+   {
         
         $request->validate([
             'variationId' => 'required|exists:product_variations,id',
@@ -78,17 +78,17 @@ class CartController extends Controller
         // Find the user by ID
         $user = User::find($userId);
 
-        if (!$user) {
+        if(!$user){
             return redirect()->route('login');
         }
         // Check if the user is authenticated
-        if ($user) {
+        if($user){
             
             // Retrieve the cart associated with the user
             $cart = $user->cart;
         
             // Check if the user has a cart
-            if (!$cart) {
+            if(!$cart){
                 // If the user doesn't have a cart, create a new one
                 $cart = new Cart();
                 $user->cart->save($cart);
@@ -98,12 +98,12 @@ class CartController extends Controller
             $variationId = $request->input('variationId');
         
             // Check if the product variation already exists in the cart
-            if ($cart->products()->where('product_variation_id', $variationId)->exists()) {
+            if($cart->products()->where('product_variation_id', $variationId)->exists()){
                 // If the product variation exists, update its quantity
                 $cart->products()->updateExistingPivot($variationId, [
                     'quantity' => DB::raw('quantity + 1')
                 ]);
-            } else {
+            }else{
                 // If the product variation doesn't exist, add it to the cart with quantity 1
                 $cart->products()->attach($variationId, ['quantity' => 1]);
             }
@@ -118,7 +118,7 @@ class CartController extends Controller
 
 
     public function updateQuantity(Request $request)
-    {
+   {
         // Validate the incoming request data
         $request->validate([
             'variationId' => 'required|exists:product_variations,id',
@@ -129,12 +129,12 @@ class CartController extends Controller
         $user = Auth::user();
 
         // Check if the user is authenticated
-        if ($user) {
+        if($user){
             // Retrieve the cart associated with the user
             $cart = $user->cart;
 
             // Check if the user has a cart
-            if ($cart) {
+            if($cart){
                 // Retrieve the variation ID and quantity from the request
                 $variationId = $request->input('variationId');
                 $quantity = $request->input('quantity');
@@ -152,7 +152,7 @@ class CartController extends Controller
     }
 
     public function removeFromCart(Request $request)
-    {
+   {
     
         // Validate the incoming request data
         $request->validate([
@@ -163,11 +163,11 @@ class CartController extends Controller
         $user = Auth::user();
 
         // Check if the user is authenticated
-        if ($user) {
+        if($user){
             // Retrieve the cart associated with the user
             $cart = $user->cart->firstOrCreate([]);
             // Check if the user has a cart
-            if ($cart) {
+            if($cart){
                 // Retrieve the variation ID from the request
                 $variationId = $request->input('variationId');
 
@@ -184,7 +184,7 @@ class CartController extends Controller
     }
 
     public function checkout(Request $request)
-    {
+   {
         // Retrieve the payment method id from the request
         $paymentMethodId = $request->input('payment_method_id');
 
@@ -198,7 +198,7 @@ class CartController extends Controller
         $cart = $user->cart;
     
         // Ensure the cart exists before proceeding
-        if (!$cart) {
+        if(!$cart){
             return redirect()->back()->with('error', 'Cart not found.');
         }
         // Create a new order
@@ -211,7 +211,7 @@ class CartController extends Controller
         $order->save();
         $cart->products()->detach();
         // Loop through the cart items and create order items for each product
-        foreach ($cart->products as $product) {
+        foreach($cart->products as $product){
             $orderItem = new OrderItem();
             $orderItem->order_id = $order->id;
             $orderItem->product_variations_id = $product->pivot->product_variation_id;
@@ -229,7 +229,7 @@ class CartController extends Controller
     }
 
     public function checkoutWithoutCart(Request $request)
-    {
+   {
 
         // Retrieve the payment method id from the request
         $variation = $request->input('variationId');
@@ -241,7 +241,7 @@ class CartController extends Controller
         $user = User::findOrFail($userId);
     
 
-        if (!$user) {
+        if(!$user){
             return redirect()->route('login');
         }
 

@@ -16,27 +16,27 @@ class Product extends Model
     ];
 
     public function category()
-    {
+   {
         return $this->belongsTo(Category::class);
     }
 
     public function type()
-    {
+   {
         return $this->belongsTo(ClothingType::class, 'type_id'); // Assuming ClothingType model
     }
 
     public function variations()
-    {
+   {
         return $this->hasMany(ProductVariation::class);
     }
 
     public function images()
-    {
+   {
         return $this->hasMany(ProductImage::class);
     }
 
     public function brand()
-    {
+   {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
  

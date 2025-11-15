@@ -35,7 +35,7 @@
                             </div>
                             <div class="ml-4">
                                 <div class="text-sm font-medium text-gray-900">
-                                    {{ variation.product.name }}
+                                   {{ variation.product.name }}
                                 </div>
                             </div>
                         </div>
@@ -76,47 +76,38 @@
 <script>
 import axios from 'axios';
 
-export default {
+export default{
     props: ['variations'],
-    data() {
-        return {
-            // Define available quantities for the dropdown
-            quantities: [1, 2, 3, 4, 5] // You can modify this array as needed
+    data(){
+        return{
+            quantities: [1, 2, 3, 4, 5]
         };
     },
-    methods: {
-        getImageUrl(variation) {
+    methods:{
+        getImageUrl(variation){
             const imageUrl = `/images/${variation.product.category.name}/${variation.product.brand.name}/${variation.product.type.name}/${variation.product.images[0].image}`;
             return imageUrl;
         },
-        updateQuantity(variation) {
-            // Update the quantity in the database
-            axios.post('/cart/updateQuantity', { variationId: variation.id, quantity: variation.quantity })
-                .then(response => {
+        updateQuantity(variation){
+            axios.post('/cart/updateQuantity',{ variationId: variation.id, quantity: variation.quantity })
+                .then(response =>{
                     console.log('Quantity updated:', response.data.message);
                     location.reload
-                    // Optionally, you can update the cart items count or reload the cart data
                 })
-                .catch(error => {
+                .catch(error =>{
                     console.error('Error updating quantity:', error);
                 });
         },
-        removeFromCart(variation) {
-            // Add logic to remove the product from the cart
-            axios.post('/cart/remove', { variationId: variation.id })
-                .then(response => {
+        removeFromCart(variation){
+            axios.post('/cart/remove',{ variationId: variation.id })
+                .then(response =>{
                     console.log('Product removed from cart:', response.data.message);
                     location.reload();
-                    // Update the cart items count or reload the cart data if needed
                 })
-                .catch(error => {
+                .catch(error =>{
                     console.error('Error removing product from cart:', error);
                 });
         }
     }
 };
 </script>
-
-<style scoped>
-/* Add your component-specific styles here */
-</style>

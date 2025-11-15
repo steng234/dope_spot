@@ -1,4 +1,4 @@
-import { createApp } from 'vue'
+import{ createApp }from 'vue'
 import buttonfordata from './components/buttonForData.vue'
 import buttonforpassword from './components/buttonForPassword.vue'
 import productdetail from './components/product-detail.vue'

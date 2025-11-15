@@ -17,7 +17,7 @@ class Cart extends Model
      * Get the user that owns the cart.
      */
     public function user()
-    {
+   {
         return $this->belongsTo(User::class);
     }
 
@@ -25,17 +25,17 @@ class Cart extends Model
      * Get the products in the cart.
      */
     public function products()
-    {
+   {
         return $this->belongsToMany(ProductVariation::class, 'cart_products')
         ->withPivot('quantity', 'product_variation_id')
         ->with('product.category', 'product.brand', 'product.images','product.type');     
     }
     
     public function calculateTotal()
-    {
+   {
         $total = 0;
 
-        foreach ($this->products as $product) {
+        foreach($this->products as $product){
             $total += $product->price * $product->pivot->quantity;
         }
 
@@ -43,10 +43,10 @@ class Cart extends Model
     }
 
     public function calculateQuantity()
-    {
+   {
         $quantity = 0;
 
-        foreach ($this->products as $product) {
+        foreach($this->products as $product){
             $quantity += $product->pivot->quantity;
         }
 

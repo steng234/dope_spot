@@ -12,7 +12,7 @@ use App\Models\Product;
 class OrderController extends Controller
 {
     public function showOrderSummary($orderId)
-    {
+   {
         // Fetch order details from the database
          // Fetch order details from the database
     $order = Order::findOrFail($orderId);

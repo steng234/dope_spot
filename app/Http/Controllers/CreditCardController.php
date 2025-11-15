@@ -14,7 +14,7 @@ class CreditCardController extends Controller
 {
 
     public function index()
-    {
+   {
         $userId = Session::get('user_id');
         $user = User::with('creditCards')->find($userId)->creditCards;
         Log::info($user);
@@ -24,8 +24,8 @@ class CreditCardController extends Controller
       
     }
     public function addPayment(Request $request)
-    {
-        try {
+   {
+        try{
             // Log the received request data
             Log::info('Received request data:', $request->all());
     
@@ -48,7 +48,7 @@ class CreditCardController extends Controller
             Log::info('Payment method added successfully');
     
             return  redirect('/cart');
-        } catch (\Exception $e) {
+        }catch(\Exception $e){
             // Log any exceptions that occur
             Log::error('Error adding payment method:', ['message' => $e->getMessage(), 'trace' => $e->getTrace()]);
             return response()->json(['success' => false, 'message' => 'Error adding payment method'], 500);

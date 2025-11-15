@@ -8,8 +8,6 @@
 @vite(['resources/js/app.js'])
 @vite(['resources/css/app.css'])
 
-<meta name="csrf-token" content="{{ csrf_token() }}">
-
 <div class="max-w-[85rem] px-4 py-6 sm:px-6 h-fit lg:px-8 lg:py-8 mx-auto">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div class="bg-gray-50 p-6 rounded-lg shadow-md">
@@ -25,7 +23,7 @@
                         @foreach($order->orderItems as $item)
                         <li class="flex justify-between items-center mb-2">
                             <div>{{ $item->productVariation->product->name }}</div>
-                            <div>{{ $item->quantity }} x ${{ $item->price }}</div>
+                            <div>{{ $item->quantity }}x ${{ $item->price }}</div>
                         </li>
                         @endforeach
                     </ul>
@@ -39,11 +37,11 @@
         </div>
         <div class="bg-gray-50 p-6 rounded-lg shadow-md">
             <h2 class="text-2xl font-semibold mb-4">Shipping Details</h2>
-            <p class="text-gray-600"><span class="font-semibold">Name:</span> {{ $order->user->name }}</p>
-            <p class="text-gray-600"><span class="font-semibold">Address:</span> {{ $order->user->address }}</p>
-            <p class="text-gray-600"><span class="font-semibold">City:</span> {{ $order->user->city }}</p>
-            <p class="text-gray-600"><span class="font-semibold">Country:</span> {{ $order->user->state }}</p>
-            <p class="text-gray-600"><span class="font-semibold">Postal Code:</span> {{ $order->user->postal }}</p>
+            <p class="text-gray-600"><span class="font-semibold">Name:</span>{{ $order->user->name }}</p>
+            <p class="text-gray-600"><span class="font-semibold">Address:</span>{{ $order->user->address }}</p>
+            <p class="text-gray-600"><span class="font-semibold">City:</span>{{ $order->user->city }}</p>
+            <p class="text-gray-600"><span class="font-semibold">Country:</span>{{ $order->user->state }}</p>
+            <p class="text-gray-600"><span class="font-semibold">Postal Code:</span>{{ $order->user->postal }}</p>
         </div>
     </div>
     <div class="py-6 h-full w-full flex justify-center">

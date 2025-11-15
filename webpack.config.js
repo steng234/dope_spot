@@ -1,6 +1,6 @@
-const { assertSupportedNodeVersion } = require('../src/Engine');
+const{ assertSupportedNodeVersion }= require('../src/Engine');
 
-module.exports = async () => {
+module.exports = async() =>{
     // @ts-ignore
     process.noDeprecation = true;
 

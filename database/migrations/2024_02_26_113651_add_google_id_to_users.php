@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     public function up()
-    {
+   {
 
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function(Blueprint $table){
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('google_id')->nullable()->unique()->after('password');
         });
 
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('products', function(Blueprint $table){
             $table->id();
             $table->string('name');
             $table->text('description');
@@ -35,13 +35,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('categories', function(Blueprint $table){
             $table->id();
             $table->string('name');
             $table->timestamps();
         });
 
-        Schema::create('product_category', function (Blueprint $table) {
+        Schema::create('product_category', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->unsignedBigInteger('category_id');
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('orders', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->decimal('total', 8, 2);
@@ -58,7 +58,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
 
-       Schema::create('order_items', function (Blueprint $table) {
+       Schema::create('order_items', function(Blueprint $table){
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
@@ -72,7 +72,7 @@ return new class extends Migration
     }
 
     public function down()
-    {
+   {
      
     }
 };

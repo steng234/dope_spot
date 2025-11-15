@@ -24,22 +24,22 @@ use App\Http\Controllers\CreditCardController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function(){
     return view('welcome');
 });
-Route::get('/login', function () {
+Route::get('/login', function(){
     return view('login');
 });
-Route::get('/register', function () {
+Route::get('/register', function(){
     return view('register');
 });
-Route::get('/home', function () {
+Route::get('/home', function(){
     return view('welcome');
 });
-Route::get('/about', function () {
+Route::get('/about', function(){
     return view('about');
 });;
-Route::get('/profile', function () {
+Route::get('/profile', function(){
     return view('profile');
 });;
 

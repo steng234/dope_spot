@@ -26,15 +26,12 @@
               </svg>
               <a href="{{ url('login/google') }}" >login with Google</a>
             </button>
-
-            <!-- Form -->
             <form action="{{url('register')}}" method="post">
-            @csrf
-
-            <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">Or</div>
-
+              @csrf
+              <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
+                Or
+              </div>
               <div class="grid gap-y-4">
-                <!-- Form Group -->
                 <div>
                   <label for="email" class="block text-sm mb-2 dark:text-white">Email address</label>
                   <div class="relative">
@@ -47,9 +44,7 @@
                   </div>
                   <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
                 </div>
-                <!-- End Form Group -->
-                 <!-- Form Group -->
-                 <div>
+                <div>
                   <label for="name" class="block text-sm mb-2 dark:text-white">name</label>
                   <div class="relative">
                     <input type="text" id="name" name="name" class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="email-error">
@@ -61,8 +56,6 @@
                   </div>
                   <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
                 </div>
-                <!-- End Form Group -->
-                <!-- Form Group -->
                 <div>
                   <label for="password" class="block text-sm mb-2 dark:text-white">Password</label>
                   <div class="relative">
@@ -75,9 +68,6 @@
                   </div>
                   <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
                 </div>
-                <!-- End Form Group -->
-
-                <!-- Form Group -->
                 <div>
                   <label for="confirm-password" class="block text-sm mb-2 dark:text-white">Confirm Password</label>
                   <div class="relative">
@@ -90,9 +80,6 @@
                   </div>
                   <p class="hidden text-xs text-red-600 mt-2" id="confirm-password-error">Password does not match the password</p>
                 </div>
-                <!-- End Form Group -->
-
-                <!-- Checkbox -->
                 <div class="flex items-center">
                   <div class="flex">
                     <input id="remember-me" name="remember-me" type="checkbox" class=" border shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800">
@@ -101,21 +88,18 @@
                     <label for="remember-me" class="text-sm dark:text-white">I accept the <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="#">Terms and Conditions</a></label>
                   </div>
                 </div>
-                <!-- End Checkbox -->
-
                 <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Sign up</button>
               </div>
             </form>
-            <!-- End Form -->
           </div>
         </div>
       </div>
     </main>
   </body>
-  @endsection
+@endsection
 
-  @if(session('showPopup'))
-    <script>
-        alert("Google authentication doesn't work. Please try again.");
-    </script>
+@if(session('showPopup'))
+  <script>
+      alert("Google authentication doesn't work. Please try again.");
+  </script>
 @endif

@@ -14,7 +14,7 @@ class CreditCard extends Model
 
     // Define any relationships if necessary
     public function user()
-    {
+   {
         return $this->belongsTo(User::class);
     }
 }
